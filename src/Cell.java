@@ -1,32 +1,23 @@
 
 public class Cell{
 	
-		
-		private int x; 
-		private int y;
-		private boolean herbe;
-		private boolean rocher;
-		private boolean arbre;
-		private int test;
+		private char representation = ' ';
+		private Coordonnee coord;
+		private boolean herbe = false;
+		private boolean rocher = false;
+		private boolean arbre = false;
+		private boolean  base = false;
 		
 		Cell(int x,int y){
-			this.x = x;
-			this.y = y;
+			coord = new Coordonnee(x,y);
+			herbe = true;
 		}
 		
-		public int getX() {
-			return x;
+		public Coordonnee getCoordonnee(){
+			return coord;
 		}
-		public void setX(int x) {
-			this.x = x;
-		}
-
-		public int getY() {
-			return y;
-		}
-
-		public void setY(int y) {
-			this.y = y;
+		public char getRepresentation(){
+			return representation;
 		}
 
 		public String toString(){
@@ -36,16 +27,29 @@ public class Cell{
 			herbe = true;
 			rocher = false;
 			arbre = false;
+			base = false;
+			representation = ' ';
 		}
 		public void setToRocher(){
 			herbe = false;
 			rocher = true;
 			arbre = false;
+			base = false;
+			representation = 'R';
 		}
 		public void setToArbre(){
 			herbe = false;
 			rocher = false;
 			arbre = true;
+			base = false;
+			representation = 'A';
+		}
+		public void setTobase(){
+			herbe = false;
+			rocher = false;
+			arbre = false;
+			base = true;
+			representation = 'B';
 		}
 		public boolean estHerbe(){
 			return herbe;
@@ -56,16 +60,7 @@ public class Cell{
 		public boolean estArbre(){
 			return arbre;
 		}
-		
-		public char getRepresentation(){
-		//	Color c = new Color(0, 169, 0);
-			
-		// On cherche quoi mettre comme caractére pour la représentation.
-			
-			if(herbe){return ' ';}
-			if(rocher){return 'R';}
-			if(arbre){return 'A';}
-			return 'B';
-			
+		public boolean estBase(){
+			return base;
 		}
 }

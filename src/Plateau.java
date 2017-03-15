@@ -16,12 +16,16 @@ public class Plateau {
 			for (int j = 0; j < plat[i].length; j++) {
 				if( r.nextInt(100) < pourcentage ){
 					if( r.nextInt(100) < 50 ){
-						plat[i][j]= new Rocher(i,j);
+						plat[i][j]= new Cell(i,j);
+						plat[i][j].setToRocher();
 					}
-					else{plat[i][j]= new Arbre(i,j);}
+					else{
+						plat[i][j]= new Cell(i,j);
+						plat[i][j].setToArbre();
+					}
 				}
 				else{
-					plat[i][j] = new Herbe(i,j);
+					plat[i][j] = new Cell(i,j);
 				}
 			}
 		}
@@ -29,15 +33,17 @@ public class Plateau {
 		drawLineLand(0,0,longueur,largeur);
 		
 		// Déclaration de l'emplacement des bases
-		plat[0][0]= new Base(0,0);
-		plat[ligne-1][colone-1]= new Base(longueur-1,largeur-1);
+		plat[0][0]= new Cell(0,0);
+		plat[0][0].setTobase();
+		plat[ligne-1][colone-1]= new Cell(longueur-1,largeur-1);
+		plat[ligne-1][colone-1].setTobase();
 
 		// On initialise les cases autour des base en herbe
-		plat[ligne-1][colone-2]= new Herbe(longueur-1,largeur-2);
-		plat[ligne-2][colone-1]= new Herbe(longueur-2,largeur-1);
-		plat[ligne-2][colone-2]= new Herbe(longueur-2,largeur-2);
-		plat[0][1]= new Herbe(0,1);
-		plat[1][0]= new Herbe(1,0);
+		plat[ligne-1][colone-2]= new Cell(longueur-1,largeur-2);
+		plat[ligne-2][colone-1]= new Cell(longueur-2,largeur-1);
+		plat[ligne-2][colone-2]= new Cell(longueur-2,largeur-2);
+		plat[0][1]= new Cell(0,1);
+		plat[1][0]= new Cell(1,0);
 		
 		
 	}
@@ -126,7 +132,7 @@ public class Plateau {
 		if (x > 0 && x < longueur
 				&& y > 0 && y < largeur
 				&& plat[x][y].getRepresentation() != ' '){
-			plat[x][y] = new Herbe(x,y);
+			plat[x][y] = new Cell(x,y);
 		}
 	}
 }
