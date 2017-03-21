@@ -56,22 +56,37 @@ public class Plateau {
 	
 	// On affiche le plateau
 	public String toString(){
+            boolean base=false;
+            boolean basepre = false;
 		String res = "";
 			for(int i = 0 ;i<(plat.length*2)+1;i++){
 				for(int j =0;j<(plat[2].length*2)+1;j++){
 					if(j%2==0 && i%2==0 ){
 						res += new String("+");
 					}
-					if(i%2==1 && j%2==0){
-						res += new String("|");
-					}
-					if(i%2==1 && j%2==1){
-						if(platRobot[i/2][j/2] != null){
-							res += " "+platRobot[i/2][j/2].getRepresentation()+" ";
-						}else{
-							res += " "+(plat[i/2][j/2]).getRepresentation()+" ";
-						}													
-					}
+                                        if(i%2==1 && j%2==0 && !base && !basepre){
+                                                res += new String("|");
+                                        }else if(i%2==1 && j%2==0 && base){
+                                            base = false;
+                                        }else if(i%2==1 && j%2==0 && basepre){
+                                            basepre=false;
+                                        }
+                                            if(i%2==1 && j%2==1){
+                                                if(platRobot[i/2][j/2] != null){
+                                                        res += " "+platRobot[i/2][j/2].getRepresentation()+" ";
+                                                }else{
+                                                    if(plat[i/2][j/2].getRepresentation()=='B'){
+                                                        base = true;
+                                                        res += "   "+plat[i/2][j/2].getRepresentation();
+                                                    }else if(plat[i/2+1][j/2+1].getRepresentation()=='B' && i>plat.length && j > plat[2].length && plat[i/2+1][j/2+1].estBase()==2){
+                                                        basepre=true;
+                                                    }else{
+                                                        res += " "+plat[i/2][j/2].getRepresentation()+" ";
+                                                    }
+                                                        
+                                                }													
+                                        }
+                                       
 					if(i%2==0 && j%2==1){
 						res += new String("---");
 					}
@@ -145,5 +160,4 @@ public class Plateau {
 	}
 	
 }
-
 
