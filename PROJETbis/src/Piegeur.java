@@ -23,6 +23,9 @@ public class Piegeur extends Robot {
 		public static int getCoutAction() {
 			return coutAction;
 		}
+		public int coutDeplacement(){
+			return coutDeplc;
+		}				
 		public int getDegatTir() {
 			return degatTir;
 		}
@@ -38,14 +41,7 @@ public class Piegeur extends Robot {
 			// TODO Auto-generated method stub
 			return false;
 		}
-		@Override
-		public int getCoupAction() {
-			return coutAction;
-		}
-		@Override
-		public int getCoupDeplacement() {
-			return coutDeplc;
-		}
+	
 		@Override
 		public List<Coordonnee> getDeplacements() {
 			return null;
