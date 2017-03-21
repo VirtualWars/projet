@@ -8,11 +8,10 @@ public abstract class Robot {
 		private Coordonnee c;
 		
 		
-		
-		public Robot(int equipe, Vue vue, int x, int y){
+		//public Robot(int equipe, Vue vue, int x, int y){  quand les vue seront faite mettre ce constructeur
+		public Robot(int equipe, int x, int y){
 			super();
 			this.equipe = equipe;
-			this.vue = vue;
 			this.c = new Coordonnee(x,y);
 		}
 		public int getEquipe() {
@@ -46,12 +45,13 @@ public abstract class Robot {
 			return "Robot [equipe=" + equipe + ", energie=" + energie + ", vue=" + vue + ", c=" + c + "]";
 		}
 		public abstract boolean peutTirer();
-		public abstract int getCoupAction();
-		public abstract int getCoupDeplacement();
+		public abstract int getCoutAction();
+		public abstract int getCoutDeplacement();
 		public abstract int getDegatTir();
 		public abstract int getDegatMine();
 		public abstract String getType();
 		public abstract List<Coordonnee> getDeplacements();
+		public abstract char getRepresentation();
 
 		
 		

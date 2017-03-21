@@ -1,11 +1,13 @@
+import java.util.List;
 
-public abstract class Tireur extends Robot{
+public class Tireur extends Robot{
 
 	private static int deplacement;
 	private static int coutAction;
 	private static int coutDeplc;
 	private static int degatTir;
 	private static int degatMine = 0;
+	private static char representation = 'T';
 	
 	/*public void setDeplcament(int deplacement){
 		this.deplacement = deplacement;
@@ -13,10 +15,10 @@ public abstract class Tireur extends Robot{
 	public static int getDeplacement() {
 		return deplacement;
 	}
-	public static int getCoutAction() {
+	public int getCoutAction() {
 		return coutAction;
 	}
-	public static int getCoutDeplc() {
+	public int getCoutDeplacement() {
 		return coutDeplc;
 	}
 	public int getDegatTir() {
@@ -28,12 +30,19 @@ public abstract class Tireur extends Robot{
 	public String getType(){
 		return "tireur";
 	}
-	public Tireur(int equipe, Vue vue, int x, int y) {
-		super(equipe, vue, x, y);
+	public Tireur(int equipe, int x, int y) {
+		super(equipe, x, y);
 	}
 	
 	public boolean peutTirer(){
 		return super.getEnergie() >= 2;
 	}
-	
+	@Override
+	public List<Coordonnee> getDeplacements() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public char getRepresentation() {
+		return representation;
+	}
 }
