@@ -14,6 +14,12 @@ public abstract class Robot {
 			this.equipe = equipe;
 			this.c = new Coordonnee(x,y);
 		}
+		public int getX(){
+			return c.getX();
+		}
+		public int getY(){
+			return c.getY();
+		}
 		public int getEquipe() {
 			return equipe;
 		}

@@ -2,10 +2,10 @@ import java.util.List;
 
 public class Tireur extends Robot{
 
-	private static int deplacement = 1;
-	private static int coutAction = -2;
-	private static int coutDeplc = -1;
-	private static int degatTir = -3;
+	private static int deplacement;
+	private static int coutAction;
+	private static int coutDeplc;
+	private static int degatTir;
 	private static int degatMine = 0;
 	private static char representation = 'T';
 	

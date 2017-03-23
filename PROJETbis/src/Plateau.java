@@ -1,9 +1,17 @@
+import java.util.ArrayList;
+//import java.util.List;
 import java.util.Random;
 
 
 public class Plateau {
 	private Cellule [] [] plat ;
-	private Robot[][] platRobot;
+	private ArrayList<Robot> listRobot = new ArrayList<Robot>();
+	
+
+	public ArrayList<Robot> getListRobot() {
+		return listRobot;
+	}
+
 	private int largeur;
 	private int longueur;
 	
@@ -12,7 +20,7 @@ public class Plateau {
 		longueur = ligne;
 		Random r = new Random();
 		plat=new Cellule [ligne][colone];
-		platRobot = new Robot[ligne][colone];
+		
 
 		for (int i = 0; i < plat.length; i++) {
 			for (int j = 0; j < plat[i].length; j++) {
@@ -46,47 +54,41 @@ public class Plateau {
 		
 	}
 	
-	public boolean ajouterTireur(int x,int y,int equipe){
-		if (plat[x][y].estHerbe()) {
-			platRobot[x][y] = new Tireur(x,y,equipe);
-			return true;
+	public void ajouterTireur(int x,int y,int equipe){
+		listRobot.add(new Tireur(x,y,equipe));
+	}
+	
+	public Cellule[][] getPlat() {
+		return plat;
+	}
+
+	private Robot[][] initialisationPlatRobot(){
+		Robot[][] tab = new Robot[plat.length][plat[2].length];
+		for (Robot r : listRobot) {
+			tab[r.getX()][r.getY()] = r;
 		}
-		return false;
+		return tab;
 	}
 	
 	// On affiche le plateau
 	public String toString(){
-            boolean base=false;
-            boolean basepre = false;
+		Robot[][] platRobot = initialisationPlatRobot();
 		String res = "";
 			for(int i = 0 ;i<(plat.length*2)+1;i++){
 				for(int j =0;j<(plat[2].length*2)+1;j++){
 					if(j%2==0 && i%2==0 ){
 						res += new String("+");
 					}
-                                        if(i%2==1 && j%2==0 && !base && !basepre){
-                                                res += new String("|");
-                                        }else if(i%2==1 && j%2==0 && base){
-                                            base = false;
-                                        }else if(i%2==1 && j%2==0 && basepre){
-                                            basepre=false;
-                                        }
-                                            if(i%2==1 && j%2==1){
-                                                if(platRobot[i/2][j/2] != null){
-                                                        res += " "+platRobot[i/2][j/2].getRepresentation()+" ";
-                                                }else{
-                                                    if(plat[i/2][j/2].getRepresentation()=='B'){
-                                                        base = true;
-                                                        res += "   "+plat[i/2][j/2].getRepresentation();
-                                                    }else if(plat[i/2+1][j/2+1].getRepresentation()=='B' && i>plat.length && j > plat[2].length && plat[i/2+1][j/2+1].estBase()==2){
-                                                        basepre=true;
-                                                    }else{
-                                                        res += " "+plat[i/2][j/2].getRepresentation()+" ";
-                                                    }
-                                                        
-                                                }													
-                                        }
-                                       
+					if(i%2==1 && j%2==0){
+						res += new String("|");
+					}
+					if(i%2==1 && j%2==1){
+						if(platRobot[i/2][j/2] != null){
+							res += " "+platRobot[i/2][j/2].getRepresentation()+" ";
+						}else{
+							res += " "+(plat[i/2][j/2]).getRepresentation()+" ";
+						}													
+					}
 					if(i%2==0 && j%2==1){
 						res += new String("---");
 					}
@@ -160,4 +162,5 @@ public class Plateau {
 	}
 	
 }
+
 
