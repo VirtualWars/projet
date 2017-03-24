@@ -1,4 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
+package virtual;
+
+/**
+ *
+ * @author belembem
+ */
 public class Cellule {
 		
 	protected Coordonnee c;
@@ -8,8 +19,18 @@ public class Cellule {
 	protected boolean arbre;
 	protected boolean herbe;
 	protected Robot r;
+        protected boolean eau;
 	
-	
+	public boolean setToEau(){
+            if(base != 0){
+			return false;
+		}
+		else{
+			eau = true;
+			return true;
+		}
+        }
+        
 	public boolean setToRocher(){
 		if(base != 0){
 			return false;
@@ -51,6 +72,9 @@ public class Cellule {
 	public boolean estArbre(){
 		return arbre;
 	}
+        public boolean estEau(){
+            return eau;
+        }
 	
 	public Cellule(int x, int y) {
 		c = new Coordonnee(x,y);
@@ -70,7 +94,6 @@ public class Cellule {
 	public int estBase(){
 		return base;
 	}
-
 	public String toString() {
 		return "Cellule [c=" + c + ", base=" + base + ", mine=" + mine + ", r=" + r + "]";
 	}
@@ -89,15 +112,12 @@ public class Cellule {
 		if(rocher){
 			return 'R';
 		}
+                if(eau){
+                    return '~';
+                }
 		else{
 			return ' ';
 		}
 		
 	}
-	
-	
-	
-	
-	
-	
 }
