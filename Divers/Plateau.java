@@ -197,5 +197,19 @@ public class Plateau {
             plat[x][y] = new Cellule();
         }
     }
-    
+
+	
+    //---
+    public int getLargeur() {
+		return largeur;
+	}
+
+	public int getLongueur() {
+		return longueur;
+	}
+
+	public Cellule[][] getPlat() {
+		return plat;
+	}
+    //---
 }
