@@ -32,6 +32,10 @@ public class Cellule {
 	public boolean estObstacle() {
 		return false;
 	}
-
+	//---
+	public void setRobot(Robot r){
+		this.r = r;
+	}
+	//---
 
 }

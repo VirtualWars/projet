@@ -1,7 +1,7 @@
 package Cellule;
 
 public class Coordonnee {
-
+	//x longueur, y largeur
 	private int x;
 	private int y;
 	
