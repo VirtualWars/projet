@@ -20,8 +20,8 @@ public class Arbre extends Cellule{
 	public int estBase() {
 		return 0;
 	}
-	public char getRepresentation(){
-		return 'A';
+	public String getRepresentation(){
+		return "A";
 	}
 	
 }

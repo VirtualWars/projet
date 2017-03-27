@@ -15,16 +15,14 @@ public class Jeu {
 	
 	public Jeu(){
 		plateau = new Plateau(20,20,15);
-		System.out.println(plateau);
-		/*joueur1 = saisieJoueur(1);
+		joueur1 = saisieJoueur(1);
 		joueur2 = saisieJoueur(2);
 		saisieTaille();
 		saisiePourcentage();
 		saisieNbrDeTroupesParEquipe();
-		plateau = new Plateau(largeur,longueur,this.pourcentage);
 		saisieDesTroupes(1);
 		System.out.println(plateau);
-		plateau.ajouterTireur(3, 4, 1);*/
+		plateau.ajouterTireur(3, 4, 1);
 	}
 	
 	private void saisieDesTroupes(int equipe){

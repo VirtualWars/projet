@@ -20,8 +20,8 @@ public class Rocher extends Cellule{
 	public int estBase() {
 		return 0;
 	}
-	public char getRepresentation(){
-		return 'R';
+	public String getRepresentation(){
+		return "R";
 	}
 		
 }

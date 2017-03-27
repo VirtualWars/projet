@@ -44,8 +44,8 @@ public abstract class Robot {
 		public void setVue(Vue vue) {
 			this.vue = vue;
 		}
-		public void subitTir(){
-			energie -= 4;
+		public void subitTir(int degatTir){
+			energie -= degatTir;
 		}
 		public void subitMine(){
 			energie -=5;
@@ -60,7 +60,7 @@ public abstract class Robot {
 		public abstract int getDegatMine();
 		public abstract String getType();
 		public abstract List<Coordonnee> getDeplacements();
-		public abstract char getRepresentation();
+		public abstract String getRepresentation();
 
 		
 		

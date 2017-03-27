@@ -1,11 +1,4 @@
 package Divers;
-import java.awt.Color;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-import Cellule.Cellule;
-import Cellule.Robot;
 
 public class Deplacement {
 	

@@ -6,6 +6,8 @@ public class Cellule {
 	Robot r = null;
 	private int mine = 0;
 
+	private int equipe;  //0) tout le monde peut posséder cette case, 1) equipe 1,2) equipe 2
+
 	public boolean estHerbe(){
 		return true;
 	}
@@ -21,9 +23,9 @@ public class Cellule {
 	public Robot getR() {
 		return r;
 	}
-	public char getRepresentation() {
+	public String getRepresentation() {
 		if (r == null) {
-			return ' ';
+			return " ";
 		} else {
 			return r.getRepresentation();
 		}
@@ -35,6 +37,14 @@ public class Cellule {
 	//---
 	public void setRobot(Robot r){
 		this.r = r;
+	}
+	
+	public int getEquipe() {
+		return equipe;
+	}
+
+	public void setEquipe(int equipe) {
+		this.equipe = equipe;
 	}
 	//---
 

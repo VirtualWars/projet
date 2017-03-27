@@ -15,7 +15,7 @@ public class Plateau {
         this.largeur = largeur;
         this.longueur = longueur;
         Random r = new Random();
-        plat=new Cellule [largeur][longueur];
+        plat=new Cellule [longueur][largeur];
        
        
         /*for (int i = 0; i < plat.length; i++) {
@@ -50,16 +50,16 @@ public class Plateau {
 
         
         // On initialise les cases autour des base en herbe
-        plat[largeur-1][longueur-2] = new Cellule();
-        plat[largeur-2][longueur-1] = new Cellule();
-        plat[largeur-2][longueur-2] = new Cellule();
+        plat[longueur-1][largeur-2] = new Cellule();
+        plat[longueur-2][largeur-1] = new Cellule();
+        plat[longueur-2][largeur-2] = new Cellule();
         plat[0][1] = new Cellule();
         plat[1][0] = new Cellule();
      // Déclaration de l'emplacement des bases
         plat[0][0] = new Base(1);
         plat[0][1] = new Base(1);
-        plat[largeur-1][longueur-1] = new Base(2);
-        plat[largeur-1][longueur-2] = new Base(2);
+        plat[longueur-1][largeur-1] = new Base(2);
+        plat[longueur-1][largeur-2] = new Base(2);
         
         int eauy = plat.length/2;
         for (int i = 0; i < plat[1].length; i++) {
@@ -117,7 +117,7 @@ public class Plateau {
                             base = !base;
                             res+="   ";
                         }
-                        else if(plat[i/2][j/2].getRepresentation()=='B'){
+                        else if(plat[i/2][j/2].getRepresentation().equals("B")){
                             base = true;
                             res += "   "+plat[i/2][j/2].getRepresentation();
                         }else{
@@ -211,5 +211,23 @@ public class Plateau {
 	public Cellule[][] getPlat() {
 		return plat;
 	}
+	
+	public void ajouterEquipe(Coordonnee c, int equipe){
+		if(estOk(c)){
+			plat[c.getX()][c.getY()].setEquipe(equipe);
+		}	
+	}
+	
+	public void viderEquipe(Coordonnee c){
+		if(estOk(c)){
+			plat[c.getX()][c.getY()].setEquipe(0);
+		}
+	}
+	
+	
+	public boolean estOk(Coordonnee coord){
+		return coord.getX()<=longueur && coord.getY()<=largeur;
+	}
+
     //---
 }

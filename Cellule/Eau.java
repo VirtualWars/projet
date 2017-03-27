@@ -22,8 +22,12 @@ public class Eau extends Cellule{
 	public int estBase() {
 		return 0;
 	}
-	public char getRepresentation(){
-		return '~';
+	public String getRepresentation(){
+		return "~";
+				
 	}
 	
+	public static String getRouge() {
+	    return "\033[31m";
+	}
 }

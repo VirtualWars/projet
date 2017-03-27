@@ -11,7 +11,7 @@ public class Tireur extends Robot{
 	private static int coutDeplc;
 	private static int degatTir;
 	private static int degatMine = 0;
-	private static char representation = 'T';
+	private static String representation = "T";
 	
 	/*public void setDeplcament(int deplacement){
 		this.deplacement = deplacement;
@@ -46,7 +46,7 @@ public class Tireur extends Robot{
 		
 		return null;
 	}
-	public char getRepresentation() {
+	public String getRepresentation() {
 		return representation;
 	}
 }

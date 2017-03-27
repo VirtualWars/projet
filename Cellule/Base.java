@@ -26,8 +26,8 @@ public class Base extends Cellule{
 	public int estBase() {
 		return equipe;
 	}
-	public char getRepresentation(){
-		return 'B';
+	public String getRepresentation(){
+		return "B";
 	}
 	
 	

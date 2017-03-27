@@ -23,14 +23,27 @@ public class Vue {
 
 	//videcase ???
 	
-	public void subitTir(Coordonnee coord){
+	public void subitTir(Coordonnee coord,int degatTir){
 		if(estOk(coord) && !plat.getPlat()[coord.getX()][coord.getY()].getR().equals(null) ){
-			plat.getPlat()[coord.getX()][coord.getY()].getR().subitTir();
+			plat.getPlat()[coord.getX()][coord.getY()].getR().subitTir(degatTir);
 		}
 	}
 
 	public boolean estOk(Coordonnee coord){
 		return coord.getX()<=plat.getLongueur() && coord.getY()<=plat.getLargeur();
+	}
+	
+	public void ajouterEquipe(Coordonnee c,int equipe){
+		if(estOk(c)){
+			plat.ajouterEquipe(c, equipe);
+	
+		}
+	}
+	
+	public void viderEquipe(Coordonnee c){
+		if(estOk(c)){
+			plat.viderEquipe(c);
+		}
 	}
 
 
