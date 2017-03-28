@@ -6,7 +6,7 @@ public class Cellule {
 	Robot r = null;
 	private int mine = 0;
 
-	private int equipe;  //0) tout le monde peut posséder cette case, 1) equipe 1,2) equipe 2
+	private int equipe;  //0) tout le monde peut possÃ©der cette case, 1) equipe 1,2) equipe 2
 
 	public boolean estHerbe(){
 		return true;

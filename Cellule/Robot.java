@@ -1,6 +1,10 @@
 package Cellule;
 import java.util.List;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import Divers.Joueur;
 import Divers.Vue;
 
 public abstract class Robot {
@@ -55,15 +59,44 @@ public abstract class Robot {
 		}
 		public abstract boolean peutTirer();
 		public abstract int getCoutAction();
-		public abstract int getCoutDeplacement();
+		public abstract int getDeplacement();
 		public abstract int getDegatTir();
 		public abstract int getDegatMine();
 		public abstract String getType();
-		public abstract List<Coordonnee> getDeplacements();
 		public abstract String getRepresentation();
-
+		public abstract void attaquer();
 		
+		public void jouer(){
+			int nbrDeplacement = this.getDeplacement();
+			boolean dejaAttaquer = false;
+			String action = "";
+			while(!dejaAttaquer || nbrDeplacement > 0){
+				action = saisieAction();
+				if (action == "STOP".toLowerCase() || action == "STOP" ) {
+					dejaAttaquer = true;
+					nbrDeplacement = -1;
+				}else if(action == "Attaquer".toLowerCase() || action == "Attaquer"){
+					attaquer();
+				}else if(action == "Deplacement".toLowerCase() || action == "Deplacement"){
+				
+				}
+				
+			}
+		}
 		
-		
-		
+		private String saisieAction(){
+			JFrame frame = new JFrame();
+			
+			String res ="";
+			while(res != "STOP".toLowerCase() || res != "STOP" 
+				||res != "Attaquer".toLowerCase() || res != "Attaquer"
+				||res != "Deplacement".toLowerCase() || res != "Deplacement"){
+				res = JOptionPane.showInputDialog(frame,"Entrez une action :\n"
+						+ "\"STOP\" pour passer au robot suivant\n"
+						+ "\"Attaquer\" pour attaquer\n"
+						+ "\"Deplacement\" pour se deplacer\n");
+			}
+			return res;
+		}
 }
+
