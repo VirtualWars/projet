@@ -6,7 +6,7 @@ import Cellule.*;
 
 public class Plateau {
     private Cellule [] [] plat ;
-    ArrayList<Robot> listeRobot = new  ArrayList<Robot>();
+    private ArrayList<Robot> listeRobot = new  ArrayList<Robot>();
     private int largeur;
     private int longueur;
     //private Robot[][] platRobot;
@@ -67,10 +67,10 @@ public class Plateau {
             if (r.nextBoolean()) {
                 moins = -1;
             }
-            if(eauy >= 6){
+            if(eauy >= eauy+3){
                 moins = -1;
             }
-            if(eauy <= 3){
+            if(eauy <= eauy-3){
                 moins = 1;
             }
             eauy = eauy + moins;
@@ -85,6 +85,10 @@ public class Plateau {
     
         
     }
+    
+    public ArrayList<Robot> getListeRobot() {
+		return listeRobot;
+	}
     
     public void ajouterTireur(int x,int y,int equipe){
            listeRobot.add(new Tireur(x,y,equipe));

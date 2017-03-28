@@ -1,28 +1,55 @@
 package Divers;
+import Cellule.*;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Jeu {
 	
-	private String joueur1;
-	private String joueur2;
+	private Joueur j1;
+	private Joueur j2;
 	private Plateau plateau;
 	private int nbrDeTour = 0;
-	private int nbrDeTroupesParEquipe;
+	private int nbrDeTroupesParEquipe = 0;
 	private int largeur;
 	private int longueur;
 	private int pourcentage;
 	
 	public Jeu(){
 		plateau = new Plateau(20,20,15);
-		joueur1 = saisieJoueur(1);
-		joueur2 = saisieJoueur(2);
+		j1 = Joueur.saisie();
+		j2 = Joueur.saisie();
 		saisieTaille();
 		saisiePourcentage();
 		saisieNbrDeTroupesParEquipe();
 		saisieDesTroupes(1);
+		plateau.ajouterTireur(1, 2, 1);
+		plateau.ajouterTireur(2, 2, 2);
 		System.out.println(plateau);
-		plateau.ajouterTireur(3, 4, 1);
+	}
+	public void Jouer(){
+		boolean jeuFini = false;
+		int equipeJoueur=0;
+		while( !jeuFini ){
+			if((nbrDeTour%2)==0){equipeJoueur = 1;}
+			else{equipeJoueur = 2;}
+			ArrayList<Robot> l = listRobotParEquipe(equipeJoueur);
+			for (Robot r : l) {
+				
+				r.jouer();
+			}
+		}	
+	}
+	
+	public ArrayList<Robot> listRobotParEquipe(int e){
+		ArrayList<Robot> l = new ArrayList<Robot>();
+		for (Robot r : plateau.getListeRobot()) {
+			if(r.getEquipe()==e){
+				l.add(r);
+			}
+		}
+		return l;
 	}
 	
 	private void saisieDesTroupes(int equipe){
@@ -75,16 +102,6 @@ public class Jeu {
 		
 	}
 
-	private String saisieJoueur(int equipe){
-		
-		JFrame frame = new JFrame();
-		
-		String res ="";
-		while(res == ""){
-			res = JOptionPane.showInputDialog(frame,"Entrez un nom pour le joueur "+equipe+":");
-		}
-		return res;
-	}
 	
 	private void saisieTaille(){
 		JFrame frame = new JFrame();
@@ -92,25 +109,23 @@ public class Jeu {
 		boolean saisieValide = false;
 		while(!saisieValide){
 			saisie = JOptionPane.showInputDialog(frame,"Rentrez une taille ( sous la forme largeur/longueur)");
-			saisieValide = testValide(saisie);
+			saisieValide = testCoordonneeValide(saisie);
 		}
 		this.largeur = Integer.valueOf(saisie.substring(0,2));
 		this.longueur = Integer.valueOf(saisie.substring(3,5));
 	}
 
-	private boolean testValide(String s){
+	private boolean testCoordonneeValide(String s){
 		if (s.length() != 5) {
 			return false;
 		}
 		for (int i = 0; i < s.length(); i++) {
 			if(i != 2){
 				if (!(s.charAt(i)>='0' && s.charAt(i)<='9')) {
-					System.out.println("cz");
 					return false;
 				}
 			}else{
 				if(s.charAt(i)!='/'){
-					System.out.println("c");
 					return false;
 				}
 			}

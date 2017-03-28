@@ -1,20 +1,19 @@
 package Divers;
-import java.util.List;
+//import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import Cellule.Coordonnee;
+//import Cellule.Coordonnee;
 import Cellule.Robot;
 
-public class Tireur extends Robot{
+public class Piegeur extends Robot{
 
 	private static int deplacement;
 	private static int coutAction;
-	private static int coutDeplc;
 	private static int degatTir;
 	private static int degatMine = 0;
-	private static String representation = "T";
+	private static String representation = "P";
 	
 	/*public void setDeplcament(int deplacement){
 		this.deplacement = deplacement;
@@ -25,9 +24,6 @@ public class Tireur extends Robot{
 	public int getCoutAction() {
 		return coutAction;
 	}
-	public int getCoutDeplacement() {
-		return coutDeplc;
-	}
 	public int getDegatTir() {
 		return degatTir;
 	}
@@ -37,20 +33,18 @@ public class Tireur extends Robot{
 	public String getType(){
 		return "tireur";
 	}
-	public Tireur(int equipe, int x, int y) {
+	public Piegeur(int equipe, int x, int y) {
 		super(equipe, x, y);
 	}
 	
-	public boolean peutTirer(){
+	public boolean peutAttaquer(){
 		return super.getEnergie() >= 2;
-	}
-
-	public List<Coordonnee> getDeplacements() {
-		
-		return null;
 	}
 	public String getRepresentation() {
 		return representation;
+	}
+	public boolean peutTirer() {
+		return false;
 	}
 	@Override
 	public void attaquer() {
@@ -61,7 +55,7 @@ public class Tireur extends Robot{
 		while(!saisieCorrect){
 			saisie = JOptionPane.showInputDialog(frame,"Entrez la case sur laquel vous voulez \n effectuez l'action\n"
 					+ "sous la forme ( ligne/colonne )\n"
-					+ "vous avez une portée de 7 cases");
+					+ "vous avez une portée de 1 case");
 			saisieCorrect = testSaisieCorrect(saisie);
 		}
 		System.out.println("Action a faire ( surtout la portée avec la portée");
