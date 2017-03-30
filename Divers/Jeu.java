@@ -32,6 +32,7 @@ public class Jeu {
 	public void Jouer(){
 		boolean jeuFini = false;
 		int equipeJoueur=0;
+		int gagnant = 0;
 		while( !jeuFini ){
 			if((nbrDeTour%2)==0){equipeJoueur = 1;}
 			else{equipeJoueur = 2;}
@@ -39,7 +40,33 @@ public class Jeu {
 			for (Robot r : l) {
 				actionRobot(r);
 			}
-		}	
+			nbrDeTour++;
+			gagnant = testGagnant(l);
+			if(gagnant > 0){
+				jeuFini = true;
+			}
+		}
+		System.out.print("L'équipe "+gagnant+" a gagné");
+	}
+	
+	private int testGagnant(ArrayList<Robot> l){
+		int nbrRobot1 = 0;
+		int nbrRobot2 = 0;
+		for (Robot r : l) {
+			if(r.getEquipe()==1){
+				nbrRobot1++;
+			}else if(r.getEquipe()==2){
+				nbrRobot2++;
+			}
+		}
+		if(nbrRobot1 == 0){
+			return 1;
+		}else if(nbrRobot2 == 0){
+			return 2;
+		}else{
+			return 0;
+		}
+		
 	}
 	
 	public ArrayList<Robot> listRobotParEquipe(int e){
@@ -137,7 +164,7 @@ public class Jeu {
 		boolean dejaAttaquer = false;
 		String action = "";
 		while(!dejaAttaquer || r.getDeplacement() > 0){
-			action = saisieAction();
+			action = saisieAction(r);
 			if (action.equals("stop") || action.equals("STOP" )) {
 				dejaAttaquer = true;
 				r.setDeplacement(-1);
@@ -149,14 +176,14 @@ public class Jeu {
 			
 		}
 	}
-	private String saisieAction(){
+	private String saisieAction(Robot r){
 		JFrame frame = new JFrame();
 		
 		String res ="";
-		while(!res.equals("STOP".toLowerCase()) && !res.equals("STOP") 
+		while(!res.equals("STOP") 
 			&& !res.equals("Attaquer".toLowerCase()) && !res.equals("Attaquer")
 			&& !res.equals("Deplacement".toLowerCase()) && !res.equals("Deplacement")){
-			res = JOptionPane.showInputDialog(frame,"Entrez une action :\n"
+			res = JOptionPane.showInputDialog(frame,"Entrez une action pour le robot situé en ("+r.getX()+","+r.getY()+"):\n"
 					+ "\"STOP\" pour passer au robot suivant\n"
 					+ "\"Attaquer\" pour attaquer\n"
 					+ "\"Deplacement\" pour se deplacer\n");
@@ -166,28 +193,24 @@ public class Jeu {
 	private void deplacement(Robot r){
 		JFrame frame = new JFrame();
 		String saisie = "";
-		while((!saisie.equals("STOP") || saisie != "stop" || saisie != "Stop") &&
-				 r.getDeplacement() > 0){
-			saisie = JOptionPane.showInputDialog(frame,"Entre la direction vers la quelle vous voulez allez\nhaut/bas/gauche/droite");
-			if(saisie.equals("droite") && plateau.getPlat()[r.getX()][r.getY()+1].estHerbe()
-					&& r.getY()+1 < largeur){
+		while((!saisie.equals("STOP") || !saisie.equals("stop") || !saisie.equals("Stop")) 
+				&& r.getDeplacement() > 0){
+			saisie = JOptionPane.showInputDialog(frame,"Entre la direction vers la quelle vous voulez allez\nhaut/bas/gauche/droite\n Il te restre "+r.getDeplacement()+" deplacements");
+			if(r.getY()+1 < largeur && saisie.equals("droite") && plateau.getPlat()[r.getX()][r.getY()+1].estHerbe()){
 				r.setCoordonnee(r.getX(), r.getY()+1);
-				System.out.print("\033[2J");
+				r.setDeplacement(r.getDeplacement()-1);
 				System.out.println(plateau);
-			}else if(saisie.equals("gauche") && plateau.getPlat()[r.getX()][r.getY()-1].estHerbe()
-					&& r.getY()-1 >= 0){
+			}else if(r.getY()-1 >= 0 && saisie.equals("gauche") && plateau.getPlat()[r.getX()][r.getY()-1].estHerbe()){
 				r.setCoordonnee(r.getX(), r.getY()-1);
-				System.out.print("\033[2J");
+				r.setDeplacement(r.getDeplacement()-1);
 				System.out.println(plateau);				
-			}else if(saisie.equals("bas") && plateau.getPlat()[r.getX()+1][r.getY()].estHerbe()
-					&& r.getX()+1 < longueur){
+			}else if(r.getX()+1 < longueur && saisie.equals("bas") && plateau.getPlat()[r.getX()+1][r.getY()].estHerbe()){
 				r.setCoordonnee(r.getX()+1, r.getY());
-			    System.out.print("\033[2J");
+				r.setDeplacement(r.getDeplacement()-1);
 				System.out.println(plateau);				
-			}else if(saisie.equals("haut") && plateau.getPlat()[r.getX()-1][r.getY()].estHerbe()
-					&& r.getX()-1 >= 0 ){
+			}else if(r.getX()-1 >= 0 && saisie.equals("haut") && plateau.getPlat()[r.getX()-1][r.getY()].estHerbe()){
 				r.setCoordonnee(r.getX()-1, r.getY());
-				System.out.print("\033[2J");
+				r.setDeplacement(r.getDeplacement()-1);
 				System.out.println(plateau);				
 			}
 		}
