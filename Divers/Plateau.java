@@ -91,7 +91,7 @@ public class Plateau {
 	}
     
     public void ajouterTireur(int x,int y,int equipe){
-           listeRobot.add(new Tireur(x,y,equipe));
+           listeRobot.add(new Tireur(x,y,equipe,plat));
     }
     
     // On affiche le plateau

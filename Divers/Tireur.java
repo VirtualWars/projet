@@ -4,13 +4,14 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import Cellule.Cellule;
 import Cellule.Coordonnee;
 import Cellule.Robot;
 
 public class Tireur extends Robot{
 
-	public Tireur(int equipe, int x, int y){
-		super(equipe,x,y,1,2,1,3,0,3,"T");
+	public Tireur(int equipe, int x, int y,Cellule[][] plat){
+		super(equipe,x,y,1,2,1,3,0,3,"T",plat);
 	}
 	
 	/*public void setDeplcament(int deplacement){
@@ -62,9 +63,7 @@ public class Tireur extends Robot{
 		
 	}
 
-	
 
-	@Override
 	public String getType() {
 		// TODO Auto-generated method stub
 		return "Tireur";

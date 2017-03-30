@@ -27,10 +27,9 @@ public class Piegeur extends Robot{
 	public boolean peutTirer() {
 		return false;
 	}
-	@Override
 
 	
-	private boolean testSaisieCorrect(String s){
+	/*private boolean testSaisieCorrect(String s){
 		if (s.length() != 5) {
 			return false;
 		}
@@ -46,7 +45,7 @@ public class Piegeur extends Robot{
 			}
 		}
 		return true;
-	}
+	}*/
 
 	@Override
 	public String getType() {
