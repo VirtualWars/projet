@@ -1,4 +1,6 @@
 package Divers;
+import java.util.ArrayList;
+
 import Cellule.*;
 public class Vue {
 	private Plateau plat;
@@ -11,7 +13,18 @@ public class Vue {
 		return plat;
 	}
 	
-	public Vue(){
+	public Vue(Plateau p,int e){
+		this.equipe=e;
+		this.plat=p;
+		Cellule [][] cell = plat.getPlat();
+		for(int i = 0;i<cell.length;i++){
+			for(int j = 0;i<cell[2].length;j++){
+				if(cell[i][j].contientMine() != equipe){
+					cell[i][j].setMine(0);
+				}
+			}
+		}
+		plat.setPlat(cell);
 	}
 	
 	public void setRobot(Robot robot, Coordonnee coord){
