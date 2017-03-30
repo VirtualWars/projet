@@ -61,18 +61,19 @@ public class Plateau {
         plat[longueur-1][largeur-1] = new Base(2);
         plat[longueur-1][largeur-2] = new Base(2);
         
-        int eauy = plat.length/2;
-        for (int i = 0; i < plat[1].length; i++) {
+        int eauy = (int) longueur/2;
+        for (int i = 0; i < largeur; i++) {
             int moins = 1;
-            if (r.nextBoolean()) {
+            if(eauy >= (int)(longueur/2)+2){
                 moins = -1;
             }
-            if(eauy >= eauy+3){
-                moins = -1;
-            }
-            if(eauy <= eauy-3){
+            else if(eauy <= (int)(longueur/2)-2){
                 moins = 1;
             }
+            else{
+                moins = -1;
+            }
+
             eauy = eauy + moins;
             if (i==7 || i == 16) {
                 plat[eauy][i] = new Cellule();
@@ -91,7 +92,7 @@ public class Plateau {
 	}
     
     public void ajouterTireur(int x,int y,int equipe){
-           listeRobot.add(new Tireur(x,y,equipe,plat));
+           listeRobot.add(new Tireur(x,y,equipe));
     }
     
     // On affiche le plateau

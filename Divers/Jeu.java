@@ -17,16 +17,17 @@ public class Jeu {
 	private int pourcentage;
 	
 	public Jeu(){
-		plateau = new Plateau(20,20,15);
 		j1 = Joueur.saisie();
 		j2 = Joueur.saisie();
 		saisieTaille();
 		saisiePourcentage();
+		plateau = new Plateau(longueur,largeur,pourcentage);
 		saisieNbrDeTroupesParEquipe();
 		saisieDesTroupes(1);
 		plateau.ajouterTireur(1, 2, 1);
 		plateau.ajouterTireur(2, 2, 2);
 		System.out.println(plateau);
+		
 	}
 	public void Jouer(){
 		boolean jeuFini = false;
@@ -36,8 +37,7 @@ public class Jeu {
 			else{equipeJoueur = 2;}
 			ArrayList<Robot> l = listRobotParEquipe(equipeJoueur);
 			for (Robot r : l) {
-				
-				r.jouer();
+				actionRobot(r);
 			}
 		}	
 	}
@@ -132,4 +132,65 @@ public class Jeu {
 		}
 		return true;
 	}
+	
+	private void actionRobot(Robot r){
+		boolean dejaAttaquer = false;
+		String action = "";
+		while(!dejaAttaquer || r.getDeplacement() > 0){
+			action = saisieAction();
+			if (action.equals("stop") || action.equals("STOP" )) {
+				dejaAttaquer = true;
+				r.setDeplacement(-1);
+			}else if(action.equals("attaquer") || action.equals("Attaquer")){
+				//attaquer();
+			}else if(action.equals("deplacement") || action.equals("Deplacement")){
+				deplacement(r);
+			}
+			
+		}
+	}
+	private String saisieAction(){
+		JFrame frame = new JFrame();
+		
+		String res ="";
+		while(!res.equals("STOP".toLowerCase()) && !res.equals("STOP") 
+			&& !res.equals("Attaquer".toLowerCase()) && !res.equals("Attaquer")
+			&& !res.equals("Deplacement".toLowerCase()) && !res.equals("Deplacement")){
+			res = JOptionPane.showInputDialog(frame,"Entrez une action :\n"
+					+ "\"STOP\" pour passer au robot suivant\n"
+					+ "\"Attaquer\" pour attaquer\n"
+					+ "\"Deplacement\" pour se deplacer\n");
+		}
+		return res;
+	}
+	private void deplacement(Robot r){
+		JFrame frame = new JFrame();
+		String saisie = "";
+		while((!saisie.equals("STOP") || saisie != "stop" || saisie != "Stop") &&
+				 r.getDeplacement() > 0){
+			saisie = JOptionPane.showInputDialog(frame,"Entre la direction vers la quelle vous voulez allez\nhaut/bas/gauche/droite");
+			if(saisie.equals("droite") && plateau.getPlat()[r.getX()][r.getY()+1].estHerbe()
+					&& r.getY()+1 < largeur){
+				r.setCoordonnee(r.getX(), r.getY()+1);
+				System.out.print("\033[2J");
+				System.out.println(plateau);
+			}else if(saisie.equals("gauche") && plateau.getPlat()[r.getX()][r.getY()-1].estHerbe()
+					&& r.getY()-1 >= 0){
+				r.setCoordonnee(r.getX(), r.getY()-1);
+				System.out.print("\033[2J");
+				System.out.println(plateau);				
+			}else if(saisie.equals("bas") && plateau.getPlat()[r.getX()+1][r.getY()].estHerbe()
+					&& r.getX()+1 < longueur){
+				r.setCoordonnee(r.getX()+1, r.getY());
+			    System.out.print("\033[2J");
+				System.out.println(plateau);				
+			}else if(saisie.equals("haut") && plateau.getPlat()[r.getX()-1][r.getY()].estHerbe()
+					&& r.getX()-1 >= 0 ){
+				r.setCoordonnee(r.getX()-1, r.getY());
+				System.out.print("\033[2J");
+				System.out.println(plateau);				
+			}
+		}
+	}
+	
 }

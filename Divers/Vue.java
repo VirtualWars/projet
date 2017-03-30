@@ -11,9 +11,7 @@ public class Vue {
 		return plat;
 	}
 	
-	public Vue(Plateau p, int equipe){
-		plat = p;
-		this.equipe=equipe;
+	public Vue(){
 	}
 	
 	public void setRobot(Robot robot, Coordonnee coord){
