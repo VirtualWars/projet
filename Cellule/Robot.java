@@ -10,7 +10,6 @@ import Divers.Vue;
 
 public abstract class Robot {
 
-		private Cellule[][] plat;
 		private int equipe;
 		private int energie;
 		private Coordonnee c;
@@ -21,10 +20,11 @@ public abstract class Robot {
 		private  int degatMine;
 		private  int portee;
 		private  String representation = "R";
+		private Vue v;
 		
 		
 		//public Robot(int equipe, Vue vue, int x, int y){  quand les vue seront faite mettre ce constructeur
-		public Robot(int equipe, int x, int y,int deplacement,int coutAction,int coutDeplc,int degatTir,int degatMine,int portee,String representation,Cellule[][] plat){
+		public Robot(int equipe, int x, int y,int deplacement,int coutAction,int coutDeplc,int degatTir,int degatMine,int portee,String representation){
 			
 			this.equipe = equipe;
 			this.c = new Coordonnee(x,y);
@@ -34,8 +34,8 @@ public abstract class Robot {
 			this.degatTir=degatTir;
 			this.degatMine=degatMine;
 			this.representation=representation;
-			this.portee=portee;
-			this.plat = plat;
+			this.portee=portee;	
+			//this.v = new Vue();
 			
 		
 		}
@@ -98,11 +98,14 @@ public abstract class Robot {
 			return this.getEnergie()>this.getCoutAction();
 
 		}
+		public void setDeplacement(int x){
+			this.deplacement = x;
+		}
 	
 		public abstract String getType();
 		
 		
-		//RAJOUTER DES MESSAGES D'ERREUR
+		/*//RAJOUTER DES MESSAGES D'ERREUR
 		public void attaquer(){
 				JFrame frame = new JFrame();
 				int i =0;
@@ -115,8 +118,8 @@ public abstract class Robot {
 							+ "sous la forme ( ligne(longueur)/ colonne(largeur) )\n"
 							+ "vous avez une portée de" + this.portee + " cases");
 					saisieCorrect = testSaisieCorrect(saisie);
-					//&& attaqueOk(new Coordonnee(saisie.charAt(0),saisie.charAt(2)),getPlateau()
-					if(!saisieCorrect){
+				
+					if(!saisieCorrect && attaqueOk(new Coordonnee(saisie.charAt(0),saisie.charAt(2)),v.getPlateau()){
 						String erreur = JOptionPane.showInputDialog(null, "Erreur dans la saisie, portee trop courte \n ou coordonnees mauvaise ou probleme de saisie. \n Voulez vous reessayer ?","Erreur",JOptionPane.ERROR_MESSAGE);
 						
 						if(erreur.equals("Non") || erreur.equals("non") || erreur.equals("NON")){
@@ -124,14 +127,14 @@ public abstract class Robot {
 						}
 						
 						if(!testSaisieCorrect(saisie)){
-							System.out.println("c'est thibait");
+							System.out.println("ok");
 						}
 						
 						if(!bonSensAttaque(new Coordonnee(saisie.charAt(0),saisie.charAt(2)))){
-							System.out.println("C BONSENSATTAQUE,saisie.charAt(2))");
+							System.out.println("C BONSENSATTAQUE,tg.charAt(2))");
 						}
 						if(! !vue.getPlateau().getPlat()[new Coordonnee(saisie.charAt(0),saisie.charAt(2)).getX()][new Coordonnee(saisie.charAt(0),saisie.charAt(2)).getY()].getR().equals(null)){
-							System.out.println("C VUE;GET PLAT BLABLA");
+							System.out.println("C VUE;GET fdp BLABLA");
 						}
 
 
@@ -139,11 +142,14 @@ public abstract class Robot {
 				}
 				Coordonnee c = new Coordonnee(saisie.charAt(0),saisie.charAt(2));	
 				if(i==0){
-					Robot r = vue.getPlateau().getPlat() [c.getX()] [c.getY()].getR();
+					Robot r = v.getPlateau().getPlat() [c.getX()] [c.getY()].getR();
 					r.setEnergie(r.getEnergie()-this.degatTir);
 				}
 			}
 
+		private boolean attaqueOk(Coordonnee coordonnee, Plateau plateau) {
+			return false;
+		}
 		private boolean testSaisieCorrect(String s){
 				if (s.length() != 3) {
 					return false;
@@ -185,14 +191,16 @@ public abstract class Robot {
 		
 		
 		private void deplacement(){
+			Plateau p = new Plateau(20,10,15);
 			JFrame frame = new JFrame();
 			String saisie = "";
-			while((saisie != "STOP" || saisie != "stop" || saisie != "Stop") &&
+			while((!saisie.equals("STOP") || saisie != "stop" || saisie != "Stop") &&
 					 this.deplacement > 0){
 				saisie = JOptionPane.showInputDialog(frame,"Entre la direction vers la quelle vous voulez allez\nhaut/bas/gauche/droite");
 				if(saisie.equals("haut")){// && plat[c.getX()][c.getY()+1] == null
 					System.out.println("fe");
 					this.c = new Coordonnee(c.getX(), c.getY()+1);
+					System.out.println(p);
 				}				
 			}
 		}
@@ -213,5 +221,6 @@ public abstract class Robot {
 			}
 			return res;
 		}
+		*/
 }
 
