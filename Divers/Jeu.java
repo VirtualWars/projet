@@ -15,7 +15,6 @@ public class Jeu {
 	private int largeur;
 	private int longueur;
 	private int pourcentage;
-	private Vue vue;
 	
 	public Jeu(){
 		j1 = Joueur.saisie();
@@ -25,8 +24,7 @@ public class Jeu {
 		plateau = new Plateau(longueur,largeur,pourcentage);
 		saisieNbrDeTroupesParEquipe();
 		saisieDesTroupes(1);
-		plateau.ajouterTireur(1, 2, 1);
-		plateau.ajouterTireur(2, 2, 2);
+		saisieDesTroupes(2);
 		System.out.println(plateau);
 		
 	}
@@ -34,6 +32,7 @@ public class Jeu {
 		boolean jeuFini = false;
 		int equipeJoueur=0;
 		int gagnant = 0;
+		
 		while( !jeuFini ){
 			if((nbrDeTour%2)==0){equipeJoueur = 1;}
 			else{equipeJoueur = 2;}
@@ -47,7 +46,10 @@ public class Jeu {
 				jeuFini = true;
 			}
 		}
-		System.out.print("L'équipe "+gagnant+" a gagné");
+		String nomGagnant = "";
+		if(gagnant == 1){ nomGagnant = j1.getNom();}
+		else{ nomGagnant = j2.getNom();}
+		System.out.print(nomGagnant+" a gagné");
 	}
 	
 	private int testGagnant(ArrayList<Robot> l){
@@ -91,8 +93,13 @@ public class Jeu {
 					+ "Vous pouvez avoir "+nbrDeTroupesParEquipe+" robot(s) dans votre équipe");
 			saisieValide = testSaisieRobots(saisie);
 		}
-		for (int i = 0; i < Integer.valueOf(saisie.charAt(0)); i++) {
-			plateau.ajouterTireur(-1, -1, equipe);
+		for (int i = 0; i < Integer.valueOf(saisie.charAt(0)+""); i++) {
+			if(equipe == 1){
+				plateau.ajouterTireur( equipe, 0, 0);
+			}
+			if(equipe == 2){
+				plateau.ajouterTireur(equipe,largeur-1,longueur-1);
+			}
 		}
 	}
 	
@@ -108,7 +115,7 @@ public class Jeu {
 		}
 	}
 	
-	
+	// protéger la saisie ici !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	private void saisieNbrDeTroupesParEquipe(){
 		JFrame frame = new JFrame();
 		int saisie = -1;
@@ -161,111 +168,81 @@ public class Jeu {
 		return true;
 	}
 	
+	
 	private void actionRobot(Robot r){
 		boolean dejaAttaquer = false;
 		String action = "";
 		while(!dejaAttaquer || r.getDeplacement() > 0){
 			action = saisieAction(r);
-			if (action.equals("stop") || action.equals("STOP" )) {
+			if (action.equals("Passer au robot suivant")) {
 				dejaAttaquer = true;
 				r.setDeplacement(-1);
-			}else if(action.equals("attaquer") || action.equals("Attaquer")){
+			}else if(action.equals("Attaquer")){
 				attaquer(r);
-			}else if(action.equals("deplacement") || action.equals("Deplacement")){
+			}else if(action.equals("Deplacement")){
 				deplacement(r);
 			}
 			
 		}
+		r.resetDeplacement();
 	}
-	private String saisieAction(Robot r){
+	private void attaquer(Robot robot) {
 		JFrame frame = new JFrame();
-		
 		String res ="";
-		while(!res.equals("STOP") 
-			&& !res.equals("Attaquer".toLowerCase()) && !res.equals("Attaquer")
-			&& !res.equals("Deplacement".toLowerCase()) && !res.equals("Deplacement")){
-			res = JOptionPane.showInputDialog(frame,"Entrez une action pour le robot situé en ("+r.getX()+","+r.getY()+"):\n"
-					+ "\"STOP\" pour passer au robot suivant\n"
-					+ "\"Attaquer\" pour attaquer\n"
-					+ "\"Deplacement\" pour se deplacer\n");
+		//while(!testCoordonneeAttaqueValide(res)){
+			res = JOptionPane.showInputDialog(frame,"Entrez une coordonnee ou attaquer");
+		//}
+		for (Robot r : plateau.getListeRobot()) {
+			if(r.getC().getX()==Integer.valueOf(res.substring(0,2)) && r.getC().getX()==Integer.valueOf(res.substring(3,5))){
+				r.setEnergie(r.getEnergie()-robot.getDegatTir());
+			}
 		}
+		System.out.println(plateau);
+	}
+	//private boolean testCoordonneeAttaqueValide(String s){   A FAIRE 
+		
+	
+	private String saisieAction(Robot r){
+		Object[] possibleValues = { "Attaquer", "Deplacement", "Passer au robot suivant" };
+		String res = (String) JOptionPane.showInputDialog(null,
+		"Quelle action veux tu effectuer avec le "+r.getType()+" situé en "+r.getC(), "Choix actions",
+		JOptionPane.INFORMATION_MESSAGE, null,
+		possibleValues, possibleValues[0]);
 		return res;
 	}
 	private void deplacement(Robot r){
-		JFrame frame = new JFrame();
 		String saisie = "";
-		while((!saisie.equals("STOP") || !saisie.equals("stop") || !saisie.equals("Stop")) 
-				&& r.getDeplacement() > 0){
-			saisie = JOptionPane.showInputDialog(frame,"Entre la direction vers la quelle vous voulez allez\nhaut/bas/gauche/droite\n Il te restre "+r.getDeplacement()+" deplacements");
-			if(r.getY()+1 < largeur && saisie.equals("droite") && plateau.getPlat()[r.getX()][r.getY()+1].estHerbe()){
+		while(r.getDeplacement() > 0){
+			
+			Object[] possibleValues = { "Haut", "Bas", "Gauche","Droite","Arréter de se déplacer" };
+			saisie = (String) JOptionPane.showInputDialog(null,
+			"Quelle action veux tu effectuer ?", "Choix actions",
+			JOptionPane.INFORMATION_MESSAGE, null,
+			possibleValues, possibleValues[0]);
+			
+			if(r.getY()+1 < largeur && saisie.equals("Droite") && plateau.getPlat()[r.getX()][r.getY()+1].estHerbe()){
 				r.setCoordonnee(r.getX(), r.getY()+1);
 				r.setDeplacement(r.getDeplacement()-1);
 				System.out.println(plateau);
-			}else if(r.getY()-1 >= 0 && saisie.equals("gauche") && plateau.getPlat()[r.getX()][r.getY()-1].estHerbe()){
+			}else if(r.getY()-1 >= 0 && saisie.equals("Gauche") && plateau.getPlat()[r.getX()][r.getY()-1].estHerbe()){
 				r.setCoordonnee(r.getX(), r.getY()-1);
 				r.setDeplacement(r.getDeplacement()-1);
 				System.out.println(plateau);				
-			}else if(r.getX()+1 < longueur && saisie.equals("bas") && plateau.getPlat()[r.getX()+1][r.getY()].estHerbe()){
+			}else if(r.getX()+1 < longueur && saisie.equals("Bas") && plateau.getPlat()[r.getX()+1][r.getY()].estHerbe()){
 				r.setCoordonnee(r.getX()+1, r.getY());
 				r.setDeplacement(r.getDeplacement()-1);
 				System.out.println(plateau);				
-			}else if(r.getX()-1 >= 0 && saisie.equals("haut") && plateau.getPlat()[r.getX()-1][r.getY()].estHerbe()){
+			}else if(r.getX()-1 >= 0 && saisie.equals("Haut") && plateau.getPlat()[r.getX()-1][r.getY()].estHerbe()){
 				r.setCoordonnee(r.getX()-1, r.getY());
 				r.setDeplacement(r.getDeplacement()-1);
 				System.out.println(plateau);				
+			}else if(saisie.equals("Arréter de se déplacer")){
+				r.setDeplacement(-1);
+			}
+			if((r.getC().getX()==0 && r.getC().getY()==1) || (r.getC().getX()==largeur-1 && r.getC().getY()==longueur-2)){
+				r.setDeplacement(r.getDeplacement()+1);
 			}
 		}
 	}
-	
-	private void attaquer(Robot r){
-		JFrame frame = new JFrame();
-		int i =0;
-		String saisie ="";
-		boolean saisieCorrect = false;
-		while(!saisieCorrect){
-			
-			saisie = JOptionPane.showInputDialog(frame,"Robot situé en ("+r.getX()+","+r.getY()+".Entrez la case sur laquelle vous voulez effectuer l'action\n"
-					+ "sous la forme ( ligne(longueur)/ colonne(largeur) )\n"
-					+ "vous avez une portée de" + r.getPortee() + " cases");
-			//attention GROSSE VERIF A FAIRE
-			//testsaisieok
-			saisieCorrect = attaqueOk((new Coordonnee((int) saisie.charAt(0)-(int) '0', (int) saisie.charAt(2)-(int) '0')),this.plateau,r);
-			if(!saisieCorrect){
-				String erreur = JOptionPane.showInputDialog(null, "Erreur dans la saisie, port�e trop courte \n ou coordonnees mauvaise ou probl�me de saisie. \n Voulez vous r�essayer ?","Erreur",JOptionPane.ERROR_MESSAGE);
-				if(erreur.equals("Non") || erreur.equals("non") || erreur.equals("NON")){ saisieCorrect = true; i++;}
-			
-
-
-			
-		}
-		Coordonnee c = new Coordonnee(saisie.charAt(0),saisie.charAt(2));	
-		if(i==0){
-			Robot r1 = vue.getPlateau().getPlat() [c.getX()] [c.getY()].getR();
-			r1.setEnergie(r1.getEnergie()-r.getDegatTir());
-		}
-	}
-	}
-
-	public boolean attaqueOk(Coordonnee coord,Plateau plat,Robot r){
-		return coord.getX()<=plat.getLongueur() && coord.getY()<=plat.getLargeur() && r.bonSensAttaque(coord) &&   !plat.getPlat()[coord.getX()][coord.getY()].getR().equals(null) ;
-	}
-	private boolean testSaisieCorrect(String s){
-			if (s.length() != 3) {
-				return false;
-			}
-			for (int i = 0; i < s.length(); i++) {
-				if(i != 1){
-					if (!(s.charAt(i)>='0' && s.charAt(i)<='9')) {
-						return false;
-					}
-				}else{
-					if(s.charAt(i)!='/'){
-						return false;
-					}
-				}
-			}
-			return true;
-		}
-
 	
 }

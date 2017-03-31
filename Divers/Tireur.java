@@ -1,17 +1,14 @@
 package Divers;
-import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-import Cellule.Cellule;
 import Cellule.Coordonnee;
 import Cellule.Robot;
 
 public class Tireur extends Robot{
 
+	private final static int POINTDEMOUVEMENT = 5;
+	
 	public Tireur(int equipe, int x, int y){
-		super(equipe,x,y,1,2,1,3,0,3,"T");
+		super(equipe,x,y,Tireur.POINTDEMOUVEMENT,2,1,3,0,3,"T");
 	}
 	
 	
@@ -35,22 +32,9 @@ public class Tireur extends Robot{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	@Override
+	public void resetDeplacement() {
+		super.setDeplacement(POINTDEMOUVEMENT);
+	}
 
 }

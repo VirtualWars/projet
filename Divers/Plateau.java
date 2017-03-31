@@ -55,19 +55,14 @@ public class Plateau {
         plat[longueur-2][largeur-2] = new Cellule();
         plat[0][1] = new Cellule();
         plat[1][0] = new Cellule();
-     // Déclaration de l'emplacement des bases
-        plat[0][0] = new Base(1);
-        plat[0][1] = new Base(1);
-        plat[longueur-1][largeur-1] = new Base(2);
-        plat[longueur-1][largeur-2] = new Base(2);
         
         int eauy = (int) longueur/2;
         for (int i = 0; i < largeur; i++) {
             int moins = 1;
-            if(eauy >= (int)(longueur/2)+2){
+            if(eauy >= (int)(longueur/2)+3){
                 moins = -1;
             }
-            else if(eauy <= (int)(longueur/2)-2){
+            else if(eauy <= (int)(longueur/2)-3){
                 moins = 1;
             }
             else{
@@ -75,14 +70,18 @@ public class Plateau {
             }
 
             eauy = eauy + moins;
-            if (i==7 || i == 16) {
+            if (i==7 || i == 16) { 
                 plat[eauy][i] = new Cellule();
-                plat[eauy-1][i] = new Cellule();
+                plat[eauy+1][i] = new Cellule();
             }else{
                 plat[eauy][i] = new Eau();
-                plat[eauy-1][i] = new Eau();
+                plat[eauy+1][i] = new Eau();
             }
         }
+        plat[0][0] = new Base(1);
+        plat[0][1] = new Base(1);
+        plat[longueur-1][largeur-1] = new Base(2);
+        plat[longueur-1][largeur-2] = new Base(2);
     
         
     }
@@ -99,7 +98,10 @@ public class Plateau {
     public String toString(){
     	Robot[][] platRobot = new Robot[this.longueur][this.largeur];
     	for (int i = 0; i <listeRobot.size() ; i++) {
-    		if(!(listeRobot.get(i).getX() < 0 || listeRobot.get(i).getY() < 0)){
+    		if(!(listeRobot.get(i).getX() < 0 && listeRobot.get(i).getY() < 0) 
+    		&& (!(listeRobot.get(i).getX() == 0 && listeRobot.get(i).getY() == 0))
+    		&& (!(listeRobot.get(i).getX() == 0 && listeRobot.get(i).getY() == 1))
+    		&& (!(listeRobot.get(i).getX() == longueur-1 && listeRobot.get(i).getY() == largeur-1))){
     			platRobot[listeRobot.get(i).getX()][listeRobot.get(i).getY()] = listeRobot.get(i);
     		}		
 		}
@@ -141,7 +143,9 @@ public class Plateau {
             }
             res+= "\n";
         }
-        
+        for (Robot r : listeRobot) {
+			res += r.getType()+"("+r.getC().getX()+","+r.getC().getY()+") : "+r.getEnergie() +" energie(s)\n";
+		}
         return res;
     }
     
@@ -232,10 +236,6 @@ public class Plateau {
 	
 	public boolean estOk(Coordonnee coord){
 		return coord.getX()<=longueur && coord.getY()<=largeur;
-	}
-
-	public void setPlat(Cellule[][] cell) {
-		this.plat=cell;
 	}
 
     //---

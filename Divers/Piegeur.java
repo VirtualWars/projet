@@ -1,16 +1,13 @@
 package Divers;
 //import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-import Cellule.Coordonnee;
-//import Cellule.Coordonnee;
 import Cellule.Robot;
+
+
 
 public class Piegeur extends Robot{
 
-
+	private final static int POINTDEMOUVEMENT = 5;
 	
 	/*public void setDeplcament(int deplacement){
 		this.deplacement = deplacement;
@@ -53,9 +50,10 @@ public class Piegeur extends Robot{
 		return "Piegeur";
 	}
 
+
 	@Override
-	public boolean bonSensAttaque(Coordonnee c) {
-		// TODO Auto-generated method stub
-		return false;
+	public void resetDeplacement() {
+		super.setDeplacement(POINTDEMOUVEMENT);
+		
 	}
 }
