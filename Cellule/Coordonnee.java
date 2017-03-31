@@ -24,7 +24,8 @@ public class Coordonnee {
 	public boolean equals(Coordonnee c){
 		return x==c.getX() && y==c.getY();
 	}
-	public String toString() {
-		return "Coordonnee [x=" + x + ", y=" + y + "]";
+	public String toString(){
+		return "("+this.x+","+this.y+")";
 	}
+	
 }

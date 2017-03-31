@@ -48,8 +48,4 @@ public class Cellule {
 	}
 	//---
 
-	public void setMine(int i) {
-		this.mine=i;
-	}
-
 }
