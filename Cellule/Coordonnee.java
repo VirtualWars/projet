@@ -12,10 +12,20 @@ public class Coordonnee {
 		return y;
 	}
 	
+    /**
+	 * crée une Coordonnee selon le x et le y donnés en param
+	 * @param x
+	 * @param y
+	 */
 	public Coordonnee(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
+    /**
+	 * remplace les valeurs de la Coordonnee selon le x et le y donnés en paramétre
+	 * @param x
+	 * @param y
+	 */
 	public void ajouterCoordonnee(int x, int y){
 		this.x = x;
 		this.y = y;

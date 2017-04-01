@@ -89,15 +89,26 @@ public abstract class Robot {
 		public void setEnergie(int energie) {
 			this.energie = energie;
 		}
+        /**
+		 * enleve de l'energie selon le degatTir
+		 * @param degatTir
+		 */
 		public void subitTir(int degatTir){
 			energie -= degatTir;
 		}
+        /**
+		 * enleve de l'energie si l'on passe sur une mine
+		 */
 		public void subitMine(){
 			energie -=5;
 		}
 		public String toString() {
 			return "Robot [equipe=" + equipe + ", energie=" + energie + ", c=" + c + "]";
 		}
+        /**
+		 * verification de l'energie pour le tir
+		 * @return
+		 */
 		public boolean peutTirer(){
 			return this.getEnergie()>this.getCoutAction();
 
