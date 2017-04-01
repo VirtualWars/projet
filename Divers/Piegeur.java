@@ -9,14 +9,19 @@ public class Piegeur extends Robot{
 
 	private final static int POINTDEMOUVEMENT = 10;
 	
-	/*public void setDeplcament(int deplacement){
-		this.deplacement = deplacement;
-	}*/
-
+    /**
+     * crée un robot de type piegeur
+     * @param equipe
+     * @param x = coordonnee
+     * @param y = coordonnee
+     */
 	public Piegeur(int equipe, int x, int y,Plateau p) {
 		super(equipe, x, y,p,Piegeur.POINTDEMOUVEMENT,2,2,0,2,1,50,"P");
 	}
-	
+    /**
+     * verifie si l'energie du robot est suffsante pour attaquer
+     * @return boolean
+     */
 	public boolean peutAttaquer(){
 		return super.getEnergie() >= 2;
 	}

@@ -37,17 +37,25 @@ public class Char extends Robot {
 			JOptionPane.INFORMATION_MESSAGE, null,
 			possibleValues, possibleValues[0]);
 			Coordonnee test = this.getC();
-			if(this.getC().getY()+2 < plateau.getLargeur() && saisie.equals("Droite") && plateau.getPlat()[this.getC().getX()][this.getC().getY()+2].estHerbe() && 
-					plateau.getPlat()[this.getC().getX()][this.getC().getY()+2].noRobot()){
+			if(this.getC().getY()+2 < plateau.getLargeur()
+					&& saisie.equals("Droite") 
+					&& plateau.getPlat()[this.getC().getX()][this.getC().getY()+2].estHerbe() 
+					&& plateau.getPlat()[this.getC().getX()][this.getC().getY()+2].noRobot()){
 				this.setCoordonnee(this.getC().getX(), this.getC().getY()+2);
-			}else if(this.getC().getY()-2 >= 0 && saisie.equals("Gauche") && plateau.getPlat()[this.getC().getX()][this.getC().getY()-2].estHerbe()&& 
-					plateau.getPlat()[this.getC().getX()][this.getC().getY()-2].noRobot()){
+			}else if(this.getC().getY()-2 >= 0 
+					&& saisie.equals("Gauche") 
+					&& plateau.getPlat()[this.getC().getX()][this.getC().getY()-2].estHerbe()
+					&& plateau.getPlat()[this.getC().getX()][this.getC().getY()-2].noRobot()){
 				this.setCoordonnee(this.getC().getX(), this.getC().getY()-2);
-			}else if(this.getC().getX()+2 < plateau.getLongueur() && saisie.equals("Bas") && plateau.getPlat()[this.getC().getX()+2][this.getC().getY()].estHerbe() && 
-					plateau.getPlat()[this.getC().getX()+2][this.getC().getY()].noRobot()){
+			}else if(this.getC().getX()+2 < plateau.getLongueur() 
+					&& saisie.equals("Bas") 
+					&& plateau.getPlat()[this.getC().getX()+2][this.getC().getY()].estHerbe() 
+					&& plateau.getPlat()[this.getC().getX()+2][this.getC().getY()].noRobot()){
 				this.setCoordonnee(this.getC().getX()+2, this.getC().getY());
-			}else if(this.getC().getX()-2 >= 0 && saisie.equals("Haut") && plateau.getPlat()[this.getC().getX()-2][this.getC().getY()].estHerbe() && 
-					plateau.getPlat()[this.getC().getX()-2][this.getC().getY()].noRobot()){
+			}else if(this.getC().getX()-2 >= 0 
+					&& saisie.equals("Haut") 
+					&& plateau.getPlat()[this.getC().getX()-2][this.getC().getY()].estHerbe()
+					&& plateau.getPlat()[this.getC().getX()-2][this.getC().getY()].noRobot()){
 				this.setCoordonnee(this.getC().getX()-2, this.getC().getY());
 			}else if(saisie.equals("Arréter de se déplacer")){
 				this.setDeplacement(-1);

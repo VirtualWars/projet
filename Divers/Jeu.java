@@ -15,7 +15,17 @@ public class Jeu {
 	private int largeur;
 	private int longueur;
 	private int pourcentage;
-	
+    /**
+     * crée un nouveau plateau
+     * initialise les deux joueurs
+     *
+     * ouvre une fenetre pour demander a l'utilisateur :
+     * 1) taille du plateau
+     * 2) nombre de robot par equipe
+     * 3) type des robots
+     *
+     * afiche le plateau
+     */	
 	public Jeu(){
 		j1 = Joueur.saisie();
 		j2 = Joueur.saisie();
@@ -28,6 +38,9 @@ public class Jeu {
 		System.out.println(plateau);
 		
 	}
+    /**
+     * effectue une action pour un robot d'une certaine equipe selon le tour de jeu
+     */
 	public void Jouer(){
 		boolean jeuFini = false;
 		int equipeJoueur=0;
@@ -51,7 +64,9 @@ public class Jeu {
 		else{ nomGagnant = j2.getNom();}
 		System.out.print(nomGagnant+" a gagné");
 	}
-	
+    /**
+     * r'envoie le joueur gagnant si il en a un 
+     */
 	private int testGagnant(ArrayList<Robot> l){
 		int nbrRobot1 = 0;
 		int nbrRobot2 = 0;
@@ -71,7 +86,11 @@ public class Jeu {
 		}
 		
 	}
-	
+    /**
+     * ajoute des robot dans une liste pour chaque equipe
+     * @param e = equipe
+     * @return liste de robot
+     */
 	public ArrayList<Robot> listRobotParEquipe(int e){
 		ArrayList<Robot> l = new ArrayList<Robot>();
 		for (Robot r : plateau.getListeRobot()) {

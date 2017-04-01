@@ -79,9 +79,9 @@ public class Plateau {
             }
         }
         plat[0][0] = new Base(1);
-        plat[0][1] = new Base(1);
+        //plat[0][1] = new Base(1);
         plat[longueur-1][largeur-1] = new Base(2);
-        plat[longueur-1][largeur-2] = new Base(2);
+        //plat[longueur-1][largeur-2] = new Base(2);
     
         
     }
@@ -89,15 +89,30 @@ public class Plateau {
     public ArrayList<Robot> getListeRobot() {
 		return listeRobot;
 	}
-    
+    /**
+     * ajoute un tireur a la coordonne donné selon l'equipe en param
+     * @param x
+     * @param y
+     * @param equipe
+     */
     public void ajouterTireur(int x,int y,int equipe,Plateau p){
            listeRobot.add(new Tireur(x,y,equipe,p));
     }
-    
+    /**
+     * ajoute un piegeur a la coordonne donné selon l'equipe en param
+     * @param x
+     * @param y
+     * @param equipe
+     */ 
     public void ajouterPiegeur(int x,int y,int equipe,Plateau p){
     	listeRobot.add(new Piegeur(x,y,equipe,p));
     }
-    
+    /**
+     * ajoute un char a la coordonne donné selon l'equipe en param
+     * @param x
+     * @param y
+     * @param equipe
+     */
     public void ajouterChar(int x,int y,int equipe,Plateau p){
     	listeRobot.add(new Char(x,y,equipe,p));
     }
@@ -175,7 +190,7 @@ public class Plateau {
             res+=  "\n";
         }
         for (Robot r : listeRobot) {
-			res += r.getType()+" de l'�quipe " + r.getEquipe() + ", coordonn�es  ("+r.getC().getX()+","+r.getC().getY()+") : "+r.getEnergie() +" energie(s)\n";
+			res += r.getType()+" de l'équipe " + r.getEquipe() + ", coordonnées  ("+r.getC().getX()+","+r.getC().getY()+") : "+r.getEnergie() +" energie(s)\n";
 		}
         res += "A : Arbre, R : Rocher, C/c : Char, T/t : Tireur, P/p : Piegeur, ~ : Riviere \n";
         return res;
@@ -183,7 +198,13 @@ public class Plateau {
     
     
     
-    // Méthode pour trouvé et crée le chemin
+    /**
+     * crée un chemin entre la base de l'equipe 1 et 2 qui ne pourra pas etre recouvert par des obstacles
+     * @param x du premier point
+     * @param y du premier point
+     * @param x du deuxiéme point
+     * @param y du deuxiéme point
+     */
     public void drawLineLand(int x1, int y1, int x2, int y2) {
         // Bresenham's
         boolean steep = Math.abs(y2 - y1) > Math.abs(x2 - x1);
@@ -232,6 +253,11 @@ public class Plateau {
             }
         }
     }
+    /**
+     * crée une nouvelle cellule dans le plateau
+     * @param x
+     * @param y
+     */
     private void changerCell(int x, int y) {
             if (x > 0 && x < longueur
                 && y > 0 && y < largeur){
@@ -252,13 +278,20 @@ public class Plateau {
 	public Cellule[][] getPlat() {
 		return plat;
 	}
-	
+    /**
+     * crée une equipe
+     * @param c = coordonnee
+     * @param equipe
+     */
 	public void ajouterEquipe(Coordonnee c, int equipe){
 		if(estOk(c)){
 			plat[c.getX()][c.getY()].setEquipe(equipe);
 		}	
 	}
-	
+    /**
+     * detruit une équipe
+     * @param c
+     */
 	public void viderEquipe(Coordonnee c){
 		if(estOk(c)){
 			plat[c.getX()][c.getY()].setEquipe(0);
@@ -270,5 +303,5 @@ public class Plateau {
 		return coord.getX()<=longueur && coord.getY()<=largeur;
 	}
 
-    //---
+
 }
