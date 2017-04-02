@@ -54,34 +54,38 @@ public class Jeu {
 				actionRobot(r);
 			}
 			nbrDeTour++;
-			gagnant = testGagnant(l);
+			gagnant = testGagnant(l,equipeJoueur);
 			if(gagnant > 0){
 				jeuFini = true;
 			}
 		}
 		String nomGagnant = "";
-		if(gagnant == 1){ nomGagnant = j1.getNom();}
+		if(gagnant >0){
+			if(equipeJoueur==1){ nomGagnant = j2.getNom();}
+			else{ nomGagnant = j1.getNom();}
+		}
 		else{ nomGagnant = j2.getNom();}
 		System.out.print(nomGagnant+" a gagné");
 	}
     /**
      * r'envoie le joueur gagnant si il en a un 
      */
-	private int testGagnant(ArrayList<Robot> l){
+	private int testGagnant(ArrayList<Robot> l,int equipe){
 		int nbrRobot1 = 0;
-		int nbrRobot2 = 0;
+		//int nbrRobot2 = 0;
 		for (Robot r : l) {
-			if(r.getEquipe()==1){
+			/*if(r.getEnergie()==0){l.remove(r);}*/
+			if(r.getEquipe()==equipe){
 				nbrRobot1++;
-			}else if(r.getEquipe()==2){
+			}/*else if(r.getEquipe()==2){
 				nbrRobot2++;
-			}
+			}*/
 		}
 		if(nbrRobot1 == 0){
 			return 1;
-		}else if(nbrRobot2 == 0){
+		}/*else if(nbrRobot2 == 0){
 			return 2;
-		}else{
+		}*/else{
 			return 0;
 		}
 		

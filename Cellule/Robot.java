@@ -178,7 +178,7 @@ public abstract class Robot {
 				v.setPlateau(plateau);
 
 				//if((this.getC().getX()==0 && this.getC().getY()==1) || (this.getC().getX()==plateau.getLargeur()-1 && this.getC().getY()==plateau.getLongueur()-2)){
-				if(this.getC().equals(test)){
+				if(this.getC().equals(test) && !saisie.equals("Arréter de se déplacer") ){
 					JOptionPane.showMessageDialog(null, "Erreur dans la saisie des coordonn�es", "Erreur",  JOptionPane.ERROR_MESSAGE);
 					this.setDeplacement(this.getDeplacement()+1);
 				}
