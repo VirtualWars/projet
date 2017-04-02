@@ -81,7 +81,7 @@ public class Plateau {
         plat[0][0] = new Base(1);
         //plat[0][1] = new Base(1);
         plat[longueur-1][largeur-1] = new Base(2);
-        //plat[longueur-1][largeur-2] = new Base(2);
+        plat[longueur-1][largeur-2] = new Base(2);
     
         
     }
