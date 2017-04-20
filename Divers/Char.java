@@ -37,7 +37,6 @@ public class Char extends Robot {
 			JOptionPane.INFORMATION_MESSAGE, null,
 			possibleValues, possibleValues[0]);
 			Coordonnee test = this.getC();
-			int energie = this.getEnergie();
 			if(this.getC().getY()+2 < plateau.getLargeur()
 					&& saisie.equals("Droite") 
 					&& plateau.getPlat()[this.getC().getX()][this.getC().getY()+2].estHerbe() 
@@ -67,26 +66,22 @@ public class Char extends Robot {
 			this.setDeplacement(this.getDeplacement()-1);
 
 			
-			this.getVue().setPlateau(plateau);
-
-			//if((this.getC().getX()==0 && this.getC().getY()==1) || (this.getC().getX()==plateau.getLargeur()-1 && this.getC().getY()==plateau.getLongueur()-2)){
-			if(this.getC().equals(test) && !saisie.equals("Arréter de se déplacer") ){
-				JOptionPane.showMessageDialog(null, "Erreur dans la saisie des coordonn�es", "Erreur",  JOptionPane.ERROR_MESSAGE);
+			
+			if((this.getC().getX()==0 && this.getC().getY()==1) || (this.getC().getX()==plateau.getLargeur()-1 && this.getC().getY()==plateau.getLongueur()-2)){
 				this.setDeplacement(this.getDeplacement()+1);
 			}
-
-			this.getVue().setPlateau(plateau);
 			
+			this.getVue().setPlateau(plateau);
+
 			if(!this.getC().equals(test)){
 				this.setEnergie(this.getEnergie()-this.getCoutDeplc());
 				
 				System.out.println(this.getVue().getPlateau());
 			}
 			else{
-				this.setEnergie(energie);
-
 				System.out.println(plateau);				
 			}
+			
 		}
 	}
 

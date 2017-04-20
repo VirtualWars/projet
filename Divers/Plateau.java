@@ -96,7 +96,7 @@ public class Plateau {
      * @param equipe
      */
     public void ajouterTireur(int x,int y,int equipe,Plateau p){
-           listeRobot.add(new Tireur(x,y,equipe,p));
+           listeRobot.add(new Tireur(equipe,x,y,p));
     }
     /**
      * ajoute un piegeur a la coordonne donné selon l'equipe en param
@@ -105,7 +105,7 @@ public class Plateau {
      * @param equipe
      */ 
     public void ajouterPiegeur(int x,int y,int equipe,Plateau p){
-    	listeRobot.add(new Piegeur(x,y,equipe,p));
+    	listeRobot.add(new Piegeur(equipe,x,y,p));
     }
     /**
      * ajoute un char a la coordonne donné selon l'equipe en param
@@ -114,7 +114,7 @@ public class Plateau {
      * @param equipe
      */
     public void ajouterChar(int x,int y,int equipe,Plateau p){
-    	listeRobot.add(new Char(x,y,equipe,p));
+    	listeRobot.add(new Char(equipe,x,y,p));
     }
     
     // On affiche le plateau
@@ -124,7 +124,7 @@ public class Plateau {
     		if(!(listeRobot.get(i).getX() < 0 && listeRobot.get(i).getY() < 0) 
     		&& (!(listeRobot.get(i).getX() == 0 && listeRobot.get(i).getY() == 0))
     		&& (!(listeRobot.get(i).getX() == 0 && listeRobot.get(i).getY() == 1))
-    		&& (!(listeRobot.get(i).getX() == longueur-1 && listeRobot.get(i).getY() == largeur-1))){
+    		&& (!(listeRobot.get(i).getX() == largeur-1 && listeRobot.get(i).getY() == longueur-1))){
     			platRobot[listeRobot.get(i).getX()][listeRobot.get(i).getY()] = listeRobot.get(i);
     		}		
 		}

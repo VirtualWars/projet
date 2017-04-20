@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 public class Jeu {
 	
@@ -54,38 +55,37 @@ public class Jeu {
 				actionRobot(r);
 			}
 			nbrDeTour++;
-			gagnant = testGagnant(l,equipeJoueur);
+			gagnant = testGagnant(plateau.getListeRobot());
 			if(gagnant > 0){
 				jeuFini = true;
 			}
 		}
 		String nomGagnant = "";
-		if(gagnant >0){
-			if(equipeJoueur==1){ nomGagnant = j2.getNom();}
-			else{ nomGagnant = j1.getNom();}
-		}
+		if(gagnant == 1){ nomGagnant = j1.getNom();}
 		else{ nomGagnant = j2.getNom();}
 		System.out.print(nomGagnant+" a gagné");
 	}
     /**
      * r'envoie le joueur gagnant si il en a un 
      */
-	private int testGagnant(ArrayList<Robot> l,int equipe){
+	private int testGagnant(ArrayList<Robot> l){
 		int nbrRobot1 = 0;
-		//int nbrRobot2 = 0;
+		int nbrRobot2 = 0;
 		for (Robot r : l) {
-			/*if(r.getEnergie()==0){l.remove(r);}*/
-			if(r.getEquipe()==equipe){
+			System.out.println("b");
+			if(r.getEquipe()==1){
 				nbrRobot1++;
-			}/*else if(r.getEquipe()==2){
+				System.out.println("1");
+			}else if(r.getEquipe()==2){
 				nbrRobot2++;
-			}*/
+				System.out.println("2");
+			}
 		}
 		if(nbrRobot1 == 0){
-			return 1;
-		}/*else if(nbrRobot2 == 0){
 			return 2;
-		}*/else{
+		}else if(nbrRobot2 == 0){
+			return 1;
+		}else{
 			return 0;
 		}
 		
@@ -120,28 +120,28 @@ public class Jeu {
 		}
 		for (int i = 0; i < Integer.valueOf(saisie.charAt(0)+""); i++) {
 			if(equipe == 1){
-				plateau.ajouterTireur( equipe, 0, 0,this.plateau);
+				plateau.ajouterTireur( 0, 0, equipe,this.plateau);
 			}
 			if(equipe == 2){
-				plateau.ajouterTireur(equipe,largeur-1,longueur-1,this.plateau);
+				plateau.ajouterTireur(longueur-1,largeur-1,equipe,this.plateau);
 			}
 		}
 		
 		
 		for (int i = 0; i < Integer.valueOf(saisie.charAt(2)+""); i++) {
 			if(equipe == 1){
-				plateau.ajouterPiegeur( equipe, 0, 0,this.plateau);
+				plateau.ajouterPiegeur( 0, 0, equipe,this.plateau);
 			}
 			if(equipe == 2){
-				plateau.ajouterPiegeur(equipe,largeur-1,longueur-1,this.plateau);
+				plateau.ajouterPiegeur(longueur-1,largeur-1,equipe,this.plateau);
 			}
 		}
 		for (int i = 0; i < Integer.valueOf(saisie.charAt(4)+""); i++) {
 			if(equipe == 1){
-				plateau.ajouterChar( equipe, 0, 0,this.plateau);
+				plateau.ajouterChar( 0, 0, equipe,this.plateau);
 			}
 			if(equipe == 2){
-				plateau.ajouterChar(equipe,largeur-1,longueur-1,this.plateau);
+				plateau.ajouterChar(longueur-1,largeur-1,equipe,this.plateau);
 			}
 		}
 		
