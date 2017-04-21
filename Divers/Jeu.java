@@ -1,6 +1,7 @@
 package Divers;
 import Cellule.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -46,13 +47,21 @@ public class Jeu {
 		boolean jeuFini = false;
 		int equipeJoueur=0;
 		int gagnant = 0;
+		int premier,second;
+		Random whoFirst = new Random();
+		
+		if(whoFirst.nextInt()==0){
+			premier = 1;
+			second = 2;}
+		else{premier = 2;
+			second = 1 ;}
 		
 		while( !jeuFini ){
-			if((nbrDeTour%2)==0){equipeJoueur = 1;}
-			else{equipeJoueur = 2;}
+			if((nbrDeTour%2)==0){equipeJoueur = premier;}
+			else{equipeJoueur = second;}
 			ArrayList<Robot> l = listRobotParEquipe(equipeJoueur);
 			for (Robot r : l) {
-				actionRobot(r);
+				Action.actionRobot(r, plateau);
 			}
 			nbrDeTour++;
 			gagnant = testGagnant(plateau.getListeRobot());
@@ -221,50 +230,13 @@ public class Jeu {
 	}
 	
 	
-	private void actionRobot(Robot r){
-		boolean dejaAttaquer = false;
-		String action = "";
-		while(!dejaAttaquer || r.getDeplacement() > 0){
-			action = saisieAction(r);
-			if (action.equals("Passer au robot suivant")) {
-				dejaAttaquer = true;
-				r.setDeplacement(-1);
-			}else if(action.equals("Attaquer")){
-				attaquer(r);
-			}else if(action.equals("Deplacement")){
-				deplacement(r);
-			}
-			
-		}
-		r.resetDeplacement();
-	}
-	private void attaquer(Robot robot) {
-		JFrame frame = new JFrame();
-		String res ="";
-		//while(!testCoordonneeAttaqueValide(res)){
-			res = JOptionPane.showInputDialog(frame,"Entrez une coordonnee ou attaquer");
-		//}
-		for (Robot r : plateau.getListeRobot()) {
-			if(r.getC().getX()==Integer.valueOf(res.substring(0,2)) && r.getC().getX()==Integer.valueOf(res.substring(3,5))){
-				r.setEnergie(r.getEnergie()-robot.getDegatTir());
-			}
-		}
-		robot.getVue().setPlateau(plateau);
-		System.out.println(robot.getVue().getPlateau());
-	}
+
+	
 	//private boolean testCoordonneeAttaqueValide(String s){   A FAIRE 
 		
 	
-	private String saisieAction(Robot r){
-		Object[] possibleValues = { "Attaquer", "Deplacement", "Passer au robot suivant" };
-		String res = (String) JOptionPane.showInputDialog(null,
-		"Quelle action veux tu effectuer avec le "+r.getType()+" situé en "+r.getC(), "Choix actions",
-		JOptionPane.INFORMATION_MESSAGE, null,
-		possibleValues, possibleValues[0]);
-		return res;
-	}
-	private void deplacement(Robot r){
-		r.deplacement();
+	
+	
 		/*String saisie = "";
 		while(r.getDeplacement() > 0){
 			
@@ -304,7 +276,7 @@ public class Jeu {
 			}
 			
 		}*/
-	}
+	
 	public int getLargeur() {
 		return largeur;
 	}
