@@ -44,7 +44,7 @@ public class Plateau {
             }
         }
         // On cherche un chemin vers les deux base , si il n'existe pas on le crée
-        drawLineLand(0,0,longueur,largeur);
+        
         
         
 
@@ -82,6 +82,7 @@ public class Plateau {
         //plat[0][1] = new Base(1);
         plat[longueur-1][largeur-1] = new Base(2);
         plat[longueur-1][largeur-2] = new Base(2);
+        drawLineLand(0,0,longueur,largeur);
     
         
     }
@@ -190,8 +191,12 @@ public class Plateau {
             res+=  "\n";
         }
         for (Robot r : listeRobot) {
-			res += r.getType()+" de l'équipe " + r.getEquipe() + ", coordonnées  ("+r.getC().getX()+","+r.getC().getY()+") : "+r.getEnergie() +" energie(s)\n";
-		}
+        	/*if(r.getEnergie() <= 0){
+				listeRobot.remove(r);
+			}*/
+        	res += r.getType()+" de l'équipe " + r.getEquipe() + ", coordonnées  ("+r.getC().getX()+","+r.getC().getY()+") : "+r.getEnergie() +" energie(s)\n";
+			
+        }
         res += "A : Arbre, R : Rocher, C/c : Char, T/t : Tireur, P/p : Piegeur, ~ : Riviere \n";
         return res;
     }
@@ -303,5 +308,9 @@ public class Plateau {
 		return coord.getX()<=longueur && coord.getY()<=largeur;
 	}
 
+	public void setListeRobot(ArrayList<Robot> listeRobot) {
+		this.listeRobot = listeRobot;
+	}
 
+	
 }
