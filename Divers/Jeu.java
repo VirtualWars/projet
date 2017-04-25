@@ -62,6 +62,7 @@ public class Jeu {
 			ArrayList<Robot> l = listRobotParEquipe(equipeJoueur);
 			for (Robot r : l) {
 				Action.actionRobot(r, plateau);
+				this.testEnVie(l);
 			}
 			nbrDeTour++;
 			gagnant = testGagnant(plateau.getListeRobot());
@@ -74,6 +75,17 @@ public class Jeu {
 		else{ nomGagnant = j2.getNom();}
 		System.out.print(nomGagnant+" a gagné");
 	}
+	
+	
+	private void testEnVie(ArrayList<Robot> l){
+		for (Robot r : l){
+			if(r.getEnergie()<=0){
+				l.remove(r);
+			}
+		}
+	}
+	
+	
     /**
      * r'envoie le joueur gagnant si il en a un 
      */
@@ -81,13 +93,10 @@ public class Jeu {
 		int nbrRobot1 = 0;
 		int nbrRobot2 = 0;
 		for (Robot r : l) {
-			System.out.println("b");
 			if(r.getEquipe()==1){
 				nbrRobot1++;
-				System.out.println("1");
 			}else if(r.getEquipe()==2){
 				nbrRobot2++;
-				System.out.println("2");
 			}
 		}
 		if(nbrRobot1 == 0){
