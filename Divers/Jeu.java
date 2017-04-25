@@ -62,7 +62,6 @@ public class Jeu {
 			ArrayList<Robot> l = listRobotParEquipe(equipeJoueur);
 			for (Robot r : l) {
 				Action.actionRobot(r, plateau);
-				this.testEnVie(l);
 			}
 			nbrDeTour++;
 			gagnant = testGagnant(plateau.getListeRobot());
@@ -77,13 +76,8 @@ public class Jeu {
 	}
 	
 	
-	private void testEnVie(ArrayList<Robot> l){
-		for (Robot r : l){
-			if(r.getEnergie()<=0){
-				l.remove(r);
-			}
-		}
-	}
+	
+
 	
 	
     /**
