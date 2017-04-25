@@ -49,8 +49,8 @@ public class Jeu {
 		int gagnant = 0;
 		int premier,second;
 		Random whoFirst = new Random();
-		
-		if(whoFirst.nextInt()==0){
+		double test = whoFirst.nextInt()+100;
+		if(test%2 ==0){
 			premier = 1;
 			second = 2;}
 		else{premier = 2;
